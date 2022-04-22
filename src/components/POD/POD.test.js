@@ -29,6 +29,6 @@ describe('Picture of the day component test suite', () => {
     it('render POD picture', () => {
         setup()
 
-        expect(screen.getByRole('img')).toBeInTheDocument
+        expect(screen.getByRole('img')).toBeInTheDocument()
     })
 })
