@@ -20,11 +20,10 @@ describe('Picture of the day component test suite', () => {
         const dateText = new RegExp(mockPOD.date, 'i')
         expect(screen.getByText(dateText)).toBeInTheDocument()
     })
-    it.skip('renders POD explanation', () => {
-        setup()
-
-        const explanationText = new RegExp(mockPOD.explanation, 'i')
-        expect(screen.getByDisplayValue(mockPOD.explanation)).toBeInTheDocument()
+    it('renders POD explanation', () => {
+        const {getByText} = setup()
+        
+        expect(getByText(mockPOD.explanation)).toBeInTheDocument()
     })
     it('render POD picture', () => {
         setup()
