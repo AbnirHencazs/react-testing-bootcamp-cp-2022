@@ -1,12 +1,20 @@
 import React from 'react'
+import { DateTime } from 'luxon'
+import './POD.css'
 
 const POD = ({ item }) => {
   return (
-    <article>
-        <h3>{item.title}</h3>
-        <span>{item.date}</span>
-        <p>{item.explanation}</p>
-        <img src={item.url}/>
+    <article >
+        <h2>{item.title}</h2>
+        <div className='pod-container'>
+          <div className='pod-details'>
+            <small>{item.date}</small>
+            <img src={item.url}/>
+          </div>
+          <aside className='pod-explanation'>
+            <p >{item.explanation}</p>
+          </aside>
+        </div>
     </article>
   )
 }
