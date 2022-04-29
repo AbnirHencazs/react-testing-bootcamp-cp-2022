@@ -6,6 +6,7 @@ const usePOD = (filters) => {
     const apiKey = process.env.REACT_APP_API_KEY
     const [ pod, setPOD ] = React.useState({})
     const [ loading, setLoading ] = React.useState()
+    const [ error, setError ] = React.useState({ e: false })
 
     React.useEffect(() => {
         setLoading(true)
@@ -14,11 +15,13 @@ const usePOD = (filters) => {
         .then((response) => {
             setPOD(response)
         })
-        .catch(() => console.error)
+        .catch((e) => {
+            setError({ e: true, ...e.response  })
+        })
         .finally(() => setLoading(false))
     }, [filters.date])
 
-    return { pod, loading }
+    return { pod, loading, error }
 }
 
 export default usePOD
