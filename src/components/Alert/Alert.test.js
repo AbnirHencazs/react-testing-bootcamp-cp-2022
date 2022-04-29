@@ -1,5 +1,10 @@
-import { render, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, waitFor, waitForElementToBeRemoved, fireEvent } from "@testing-library/react";
+import { DateTime } from "luxon";
 import Alert from "./Alert";
+import Home from "../../pages/Home";
+import usePOD from "../../hooks/usePOD";
+jest.mock("../../hooks/usePOD.js")
+
 
 const setup = (props) => render(<Alert { ...props }/>)
 
@@ -10,11 +15,18 @@ describe('Alert component test suite', () => {
         expect(getByRole('alert')).toBeInTheDocument()
         expect(getByRole('alert').className.includes('error')).toBeTruthy()
     })
-    it('Dissapears after 1.5 seconds', async() => {
-        const { getByRole } = setup({ type: 'error', show: true, content: 'Error message' })
-        const alertEl = getByRole('alert')
-        expect(alertEl).toBeInTheDocument()
-        await waitForElementToBeRemoved(alertEl, { timeout: 1500 })
-        expect(alertEl).not.toBeInTheDocument()
+
+    it("Renders Error message when an invalid date is requested and dissapears after 1.5 seconds", async () => {
+        usePOD.mockReturnValue({
+            e: true,
+            error: {
+                code: 400
+            }
+        })
+        const { getByRole, getByLabelText } = render(<Home/>)
+
+        const dateInput = getByLabelText(/pick a date/i)
+        fireEvent.change(dateInput, { target: { value: DateTime.now().plus({ days: 1 }).toFormat('yyyy-MM-dd') } })
+        await waitFor(() => expect(getByRole('alert')).toBeInTheDocument(), { timeout: 2000 })
     })
 })
