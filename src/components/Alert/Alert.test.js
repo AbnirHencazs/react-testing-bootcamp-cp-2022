@@ -18,16 +18,18 @@ describe('Alert component test suite', () => {
 
     it("Renders Error message when an invalid date is requested and dissapears after 1.5 seconds", async () => {
         usePOD.mockReturnValue({
-            e: true,
             error: {
+                e: true,
                 code: 400
             },
-            date: DateTime.now().plus({ day: 2 })
+            date: DateTime.now().plus({ day: 2 }),
         })
         const { getByRole, getByLabelText } = render(<Home/>)
 
         const dateInput = getByLabelText(/pick a date/i)
         fireEvent.change(dateInput, { target: { value: DateTime.now().plus({ days: 1 }).toFormat('yyyy-MM-dd') } })
-        await waitFor(() => expect(getByRole('alert')).toBeInTheDocument(), { timeout: 2000 })
+        const alertEl = getByRole('alert')
+        await waitFor(() => expect(alertEl).toBeInTheDocument(), { timeout: 2000 })
+        await waitFor(() => expect(alertEl).not.toBeInTheDocument(), { timeout: 2000 })
     })
 })
