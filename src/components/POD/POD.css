@@ -1,0 +1,39 @@
+.pod-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+h2{
+    padding: 0 0 0 1rem;
+    color: #9BDAF1;
+    -webkit-text-stroke: 0.3px rgb(33, 33, 33);
+}
+
+.pod-details{
+    width: 75%;
+    padding: 0 1rem;
+    text-align: end;
+}
+
+.pod-details small{
+    font-weight: 700;
+    color:rgb(33, 33, 33)
+}
+
+.pod-container img{
+    width: 100%;
+}
+
+.pod-explanation{
+    width: 25%;
+    padding: 1rem 1rem 0;
+}
+
+.pod-explanation p{
+    font-size: 1rem;
+    line-height: 2rem;
+    text-align: justify;
+}
+
+

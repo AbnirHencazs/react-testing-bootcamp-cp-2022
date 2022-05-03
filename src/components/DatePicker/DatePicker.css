@@ -1,0 +1,25 @@
+.datepickerContainer{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.datepickerContainer label{
+    text-align: center;
+}
+
+.datepickerContainer input[type=date]{
+    width: 10%;
+    margin: auto;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem auto;
+    border-radius:  10px;
+    border-color: rgb(33, 33, 33);
+    background-color: rgb(33, 33, 33);
+    color: rgb(155, 218, 241)
+}
+
+.datepickerContainer input[type=date]:focus{
+    border-color:none;
+    outline: 3px solid rgb(155, 218, 241);
+}
