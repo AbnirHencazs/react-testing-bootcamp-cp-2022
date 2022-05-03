@@ -21,7 +21,8 @@ describe('Alert component test suite', () => {
             e: true,
             error: {
                 code: 400
-            }
+            },
+            date: DateTime.now().plus({ day: 2 })
         })
         const { getByRole, getByLabelText } = render(<Home/>)
 

@@ -1,17 +1,22 @@
 import React from "react";
-import useAxios from "./useAxios";
+import NASAservice from "../helpers/NASAService";
+import { DateTime } from "luxon";
 
-const usePOD = (filters) => {
-    const NASAservice = useAxios()
+const usePOD = () => {
     const apiKey = process.env.REACT_APP_API_KEY
     const [ pod, setPOD ] = React.useState({})
     const [ loading, setLoading ] = React.useState()
     const [ error, setError ] = React.useState({ e: false })
+    const [ date, setDate ] = React.useState(DateTime.now())
+
+    const changeDate = (e) => {
+        setDate(DateTime.fromFormat(e.target.value, 'yyyy-MM-dd'))
+    }
 
     React.useEffect(() => {
         setLoading(true)
-        const queryString = Object.keys(filters).map(key => key + '=' + filters[key]).join('&');
-        NASAservice.get(`/planetary/apod?api_key=${apiKey}&${queryString}`,)
+        setError({ e: false })
+        NASAservice.get(`/planetary/apod?api_key=${apiKey}&date=${date.toFormat('yyyy-MM-dd')}`,)
         .then((response) => {
             setPOD(response)
         })
@@ -19,9 +24,9 @@ const usePOD = (filters) => {
             setError({ e: true, ...e.response  })
         })
         .finally(() => setLoading(false))
-    }, [filters.date])
-
-    return { pod, loading, error }
+    }, [date])
+   
+    return { pod, loading, error, changeDate, date }
 }
 
 export default usePOD

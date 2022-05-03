@@ -1,17 +1,7 @@
-import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Home from './Home'
-
-/**
- * If we do not have MSW instance wich responds to a custom hooks request, we can mock custom hook returned value like the following
- * 
- */
-// import usePOD from '../hooks/usePOD'
 import { mockPOD } from '../mocks/APOD/mockPOD'
-// jest.mock("../hooks/usePOD.js")
-// usePOD.mockReturnValue({
-//     pod: mockPOD,
-//     loading: false
-// })
+
 
 const setup = () => render(<Home/>)
 
